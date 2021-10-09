@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.bytebeats.logcatx">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <application>
+        <provider
+            android:authorities="${applicationId}.logcatx.provider"
+            android:name=".LogcatXInitializer"
+            android:exported="false"
+            android:initOrder="99" />
+        <activity
+            android:name=".ui.LogcatXActivity"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+    </application>
 </manifest>
