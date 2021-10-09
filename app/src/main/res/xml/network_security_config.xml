@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Android P forbid http request -->
+<network-security-config>
+    <!--  text communication is permitted  -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
