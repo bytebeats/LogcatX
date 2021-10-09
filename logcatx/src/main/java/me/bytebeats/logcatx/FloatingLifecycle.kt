@@ -3,7 +3,7 @@ package me.bytebeats.logcatx
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.view.WindowManager
+import me.bytebeats.logcatx.ui.FloatingWindow
 import me.bytebeats.logcatx.ui.LogcatXActivity
 
 /**
@@ -25,10 +25,9 @@ class FloatingLifecycle : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (activity is LogcatXActivity) {
-            activity.window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             return
         }
-        FloatingWindow.with(activity).display()
+        FloatingWindow.with(activity).show()
     }
 
     override fun onActivityStarted(activity: Activity) {}

@@ -16,7 +16,7 @@
         tools:text="提示语" />
 
     <View
-        android:id="@+id/v_choose_line"
+        android:id="@+id/v_choose_divider"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_gravity="bottom"

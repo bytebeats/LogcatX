@@ -1,22 +1,32 @@
 package me.bytebeats.logcatx.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Process
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.WindowInsets
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.bytebeats.logcatx.*
-import me.bytebeats.logcatx.ui.recyclerview.OnItemClickListener
-import me.bytebeats.logcatx.ui.recyclerview.RecyclerViewClickListener
+import me.bytebeats.logcatx.ui.recyclerview.OnItemDoubleClickListener
+import me.bytebeats.logcatx.ui.recyclerview.OnItemLongClickListener
+import me.bytebeats.logcatx.ui.recyclerview.OnItemSingleClickListener
+import me.bytebeats.logcatx.ui.recyclerview.RecyclerViewClickBinder
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -56,19 +66,43 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.logcat_window_logcat)
-        RecyclerViewClickListener(mRecyclerview, object : OnItemClickListener {
+        RecyclerViewClickBinder(mRecyclerview, object : OnItemSingleClickListener {
             override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                 mAdapter.clickAt(position)
             }
-
+        }, object : OnItemLongClickListener {
             override fun onItemLongClick(recyclerView: RecyclerView, child: View, position: Int) {
-
+                ChooseWindow(this@LogcatXActivity)
+                    .setList(
+                        R.string.logcat_options_copy,
+                        R.string.logcat_options_share,
+                        R.string.logcat_options_delete,
+                        R.string.logcat_options_shield
+                    )
+                    .setOnItemClickListener(object : OnItemSingleClickListener {
+                        override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
+                            when (position) {
+                                0 -> {
+                                    copyIntoClipboard(position)
+                                }
+                                1 -> {
+                                    smartShare(position)
+                                }
+                                2 -> {
+                                    mLogs.remove(mAdapter.item(position))
+                                    mAdapter.removeAt(position)
+                                }
+                                3 -> {
+                                    addFilter(mAdapter.item(position).tag)
+                                }
+                                else -> {
+                                }
+                            }
+                        }
+                    })
+                    .show()
             }
-
-            override fun onItemDoubleTap(recyclerView: RecyclerView, child: View, position: Int) {
-
-            }
-        })
+        }, null)
         mRecyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerview.adapter = mAdapter
 
@@ -115,6 +149,55 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                 finish()
             }
         })
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) hideSystemUI() else showSystemUI()
+    }
+
+    private fun hideSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+            WindowInsetsControllerCompat(window, window.decorView).let { controller ->
+                controller.hide(WindowInsets.Type.systemBars())
+                controller.hide(WindowInsets.Type.navigationBars())
+                controller.hide(WindowInsets.Type.statusBars())
+                controller.hide(WindowInsets.Type.captionBar())
+                controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else {
+            // Enables regular immersive mode.
+            // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+            // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
+                    // Set the content to appear under the system bars so that the
+                    // content doesn't resize when the system bars hide and show.
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    // Hide the nav bar and status bar
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }
+    }
+
+    // Shows the system bars by removing all the flags
+// except for the ones that make the content appear under the system bars.
+    private fun showSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowCompat.setDecorFitsSystemWindows(window, true)
+            WindowInsetsControllerCompat(window, window.decorView).let { controller ->
+                controller.show(WindowInsets.Type.systemBars())
+                controller.show(WindowInsets.Type.navigationBars())
+                controller.show(WindowInsets.Type.statusBars())
+                controller.show(WindowInsets.Type.captionBar())
+            }
+        } else {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+        }
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -304,6 +387,33 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
 
     private fun toast(@StringRes msgRes: Int) {
         toast(getString(msgRes))
+    }
+
+    private fun copyIntoClipboard(position: Int) {
+        val manager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        if (manager == null) {
+            toast(R.string.logcat_copy_fail)
+        } else {
+            manager.setPrimaryClip(
+                ClipData.newPlainText(
+                    "logcatX",
+                    mAdapter.item(position).log
+                )
+            )
+            toast(R.string.logcat_copy_succeed)
+        }
+    }
+
+    private fun smartShare(position: Int) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, mAdapter.item(position).log)
+        startActivity(
+            Intent.createChooser(
+                intent,
+                getString(R.string.logcat_options_share)
+            )
+        )
     }
 
     private inner class LogTask(private val item: LogcatItem) : Runnable {

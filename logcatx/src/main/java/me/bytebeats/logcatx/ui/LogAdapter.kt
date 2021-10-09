@@ -40,7 +40,7 @@ class LogAdapter(val context: Context) : RecyclerView.Adapter<LogAdapter.LogView
         notifyItemInserted(mLogs.size)
     }
 
-    private fun removeAt(position: Int) {
+    fun removeAt(position: Int) {
         mLogs.removeAt(position)
         notifyItemRemoved(position)
     }

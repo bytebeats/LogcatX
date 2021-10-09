@@ -13,15 +13,19 @@ import androidx.recyclerview.widget.RecyclerView
  * @Description TO-DO
  */
 
-class RecyclerViewClickListener(val recyclerView: RecyclerView, val listener: OnItemClickListener?) :
-        RecyclerView.OnItemTouchListener {
+class RecyclerViewClickBinder(
+    val recyclerView: RecyclerView,
+    val singleClickListener: OnItemSingleClickListener? = null,
+    val longClickListener: OnItemLongClickListener? = null,
+    val doubleClickListener: OnItemDoubleClickListener? = null
+) : RecyclerView.OnItemTouchListener {
 
     private val mGestureDetector =
         GestureDetector(recyclerView.context, object : GestureDetector.SimpleOnGestureListener() {
             override fun onSingleTapUp(e: MotionEvent?): Boolean {
                 val child = e?.let { recyclerView.findChildViewUnder(it.x, it.y) }
-                if (child != null && listener != null) {
-                    listener.onItemSingleTap(recyclerView, child, recyclerView.getChildLayoutPosition(child))
+                if (child != null && singleClickListener != null) {
+                    singleClickListener.onItemSingleTap(recyclerView, child, recyclerView.getChildLayoutPosition(child))
                     return true
                 }
                 return false
@@ -29,15 +33,15 @@ class RecyclerViewClickListener(val recyclerView: RecyclerView, val listener: On
 
             override fun onLongPress(e: MotionEvent?) {
                 val child = e?.let { recyclerView.findChildViewUnder(it.x, it.y) }
-                if (child != null && listener != null) {
-                    listener.onItemLongClick(recyclerView, child, recyclerView.getChildLayoutPosition(child))
+                if (child != null && longClickListener != null) {
+                    longClickListener.onItemLongClick(recyclerView, child, recyclerView.getChildLayoutPosition(child))
                 }
             }
 
             override fun onDoubleTap(e: MotionEvent?): Boolean {
                 val child = e?.let { recyclerView.findChildViewUnder(it.x, it.y) }
-                if (child != null && listener != null) {
-                    listener.onItemDoubleTap(recyclerView, child, recyclerView.getChildLayoutPosition(child))
+                if (child != null && doubleClickListener != null) {
+                    doubleClickListener.onItemDoubleTap(recyclerView, child, recyclerView.getChildLayoutPosition(child))
                     return true
                 }
                 return false
