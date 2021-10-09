@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/logcat_window_background_color"
+        android:background="@color/logcatx_window_background_color"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="5dp"
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:button="@drawable/logcat_bg_log_check"
+            android:button="@drawable/logcatx_bg_log_check"
             android:checked="false" />
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/logcat_ic_save" />
+            android:src="@drawable/logcatx_ic_save" />
 
         <TextView
             android:id="@+id/tv_log_level"
@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/logcat_bg_log_frame"
-            android:drawableStart="@drawable/logcat_ic_filter"
+            android:background="@drawable/logcatx_bg_log_frame"
+            android:drawableStart="@drawable/logcatx_ic_filter"
             android:drawablePadding="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="8dp"
@@ -60,12 +60,12 @@
                 android:id="@+id/et_log_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/logcat_bg_log_frame"
+                android:background="@drawable/logcatx_bg_log_frame"
                 android:cursorVisible="true"
-                android:drawableStart="@drawable/logcat_ic_search"
-                android:drawableLeft="@drawable/logcat_ic_search"
+                android:drawableStart="@drawable/logcatx_ic_search"
+                android:drawableLeft="@drawable/logcatx_ic_search"
                 android:drawablePadding="15dp"
-                android:hint="@string/logcat_search_hint"
+                android:hint="@string/logcatx_search_hint"
                 android:imeOptions="actionSearch"
                 android:paddingStart="15dp"
                 android:paddingLeft="15dp"
@@ -89,7 +89,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/logcat_ic_empty"
+                android:src="@drawable/logcatx_ic_empty"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/logcat_ic_clear" />
+            android:src="@drawable/logcatx_ic_clear" />
 
         <ImageView
             android:id="@+id/iv_log_close"
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/logcat_ic_close" />
+            android:src="@drawable/logcatx_ic_close" />
 
     </LinearLayout>
 
@@ -125,7 +125,7 @@
             android:dividerHeight="0px"
             android:fadeScrollbars="true"
             android:scrollbarSize="1dp"
-            android:scrollbarThumbVertical="@color/logcat_scrollbar_thumb_color"
+            android:scrollbarThumbVertical="@color/logcatx_scrollbar_thumb_color"
             android:scrollbars="vertical"
             android:verticalScrollbarPosition="left"
             tools:listitem="@layout/logcat_item_logcat" />
@@ -136,8 +136,8 @@
             android:layout_height="60dp"
             android:layout_gravity="end|bottom"
             android:layout_margin="20dp"
-            android:background="@drawable/logcat_bg_log_roll"
-            android:src="@drawable/logcat_ic_down"
+            android:background="@drawable/logcatx_bg_log_roll"
+            android:src="@drawable/logcatx_ic_down"
             android:translationZ="10dp" />
     </FrameLayout>
 

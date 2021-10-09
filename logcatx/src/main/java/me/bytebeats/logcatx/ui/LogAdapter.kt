@@ -106,12 +106,12 @@ class LogAdapter(val context: Context) : RecyclerView.Adapter<LogAdapter.LogView
             }
             contentView.text = text
             val logColorRes = when (logcatItem.level) {
-                "V" -> R.color.logcat_level_verbose_color
-                "D" -> R.color.logcat_level_debug_color
-                "I" -> R.color.logcat_level_info_color
-                "W" -> R.color.logcat_level_warn_color
-                "E" -> R.color.logcat_level_error_color
-                else -> R.color.logcat_level_other_color
+                "V" -> R.color.logcatx_level_verbose_color
+                "D" -> R.color.logcatx_level_debug_color
+                "I" -> R.color.logcatx_level_info_color
+                "W" -> R.color.logcatx_level_warn_color
+                "E" -> R.color.logcatx_level_error_color
+                else -> R.color.logcatx_level_other_color
             }
             val logTextColor = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 context.resources.getColor(logColorRes, context.theme)
@@ -125,12 +125,12 @@ class LogAdapter(val context: Context) : RecyclerView.Adapter<LogAdapter.LogView
                 if (mExpanded.get(position)) {
                     if (contentView.maxLines != Int.MAX_VALUE) {
                         contentView.maxLines = Int.MAX_VALUE
-                        expandView.setImageResource(R.drawable.logcat_ic_arrows_up)
+                        expandView.setImageResource(R.drawable.logcatx_ic_arrows_up)
                     }
                 } else {
                     if (contentView.maxLines != MAX_LINE) {
                         contentView.maxLines = MAX_LINE
-                        expandView.setImageResource(R.drawable.logcat_ic_arrows_down)
+                        expandView.setImageResource(R.drawable.logcatx_ic_arrows_down)
                     }
                 }
 

@@ -10,6 +10,6 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/logcat_bg_window_toast"
+        android:background="@drawable/logcatx_bg_window_toast"
         tools:listitem="@layout/logcat_item_choose" />
 </FrameLayout>

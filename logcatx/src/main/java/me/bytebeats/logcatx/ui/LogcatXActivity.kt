@@ -23,7 +23,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.bytebeats.logcatx.*
-import me.bytebeats.logcatx.ui.recyclerview.OnItemDoubleClickListener
 import me.bytebeats.logcatx.ui.recyclerview.OnItemLongClickListener
 import me.bytebeats.logcatx.ui.recyclerview.OnItemSingleClickListener
 import me.bytebeats.logcatx.ui.recyclerview.RecyclerViewClickBinder
@@ -74,10 +73,10 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             override fun onItemLongClick(recyclerView: RecyclerView, child: View, position: Int) {
                 ChooseWindow(this@LogcatXActivity)
                     .setList(
-                        R.string.logcat_options_copy,
-                        R.string.logcat_options_share,
-                        R.string.logcat_options_delete,
-                        R.string.logcat_options_shield
+                        R.string.logcatx_options_copy,
+                        R.string.logcatx_options_share,
+                        R.string.logcatx_options_delete,
+                        R.string.logcatx_options_shield
                     )
                     .setOnItemClickListener(object : OnItemSingleClickListener {
                         override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
@@ -238,11 +237,11 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
 
     override fun onLongClick(v: View?): Boolean {
         val toastRes = when (v?.id) {
-            R.id.iv_log_switch -> R.string.logcat_capture
-            R.id.iv_log_save -> R.string.logcat_save
-            R.id.tv_log_level -> R.string.logcat_level
-            R.id.iv_log_clean -> R.string.logcat_empty
-            R.id.iv_log_close -> R.string.logcat_close
+            R.id.iv_log_switch -> R.string.logcatx_capture
+            R.id.iv_log_save -> R.string.logcatx_save
+            R.id.tv_log_level -> R.string.logcatx_level
+            R.id.iv_log_clean -> R.string.logcatx_empty
+            R.id.iv_log_close -> R.string.logcatx_close
             else -> null
         }
         if (toastRes != null) {
@@ -253,7 +252,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (isChecked) {
-            toast(R.string.logcat_capture_pause)
+            toast(R.string.logcatx_capture_pause)
             LogcatX.pause()
         } else {
             LogcatX.resume()
@@ -307,7 +306,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                     tag = reader.readLine()
                 }
             } catch (ignored: IOException) {
-                toast(R.string.logcat_read_config_fail)
+                toast(R.string.logcatx_read_config_fail)
             } finally {
                 try {
                     reader?.close()
@@ -334,9 +333,9 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             writer.flush()
             mAdapter.logs().filter { it.tag == tag }
             mAdapter.notifyDataSetChanged()
-            toast("${getString(R.string.logcat_shield_succeed)} ${file.path}")
+            toast("${getString(R.string.logcatx_shield_succeed)} ${file.path}")
         } catch (ignored: IOException) {
-            toast(R.string.logcat_shield_fail)
+            toast(R.string.logcatx_shield_fail)
         } finally {
             try {
                 writer?.close()
@@ -369,9 +368,9 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             }
             writer.flush()
 
-            toast("${getString(R.string.logcat_save_succeed)} ${file.path}")
+            toast("${getString(R.string.logcatx_save_succeed)} ${file.path}")
         } catch (ignored: IOException) {
-            toast(R.string.logcat_save_fail)
+            toast(R.string.logcatx_save_fail)
         } finally {
             try {
                 writer?.close()
@@ -392,7 +391,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     private fun copyIntoClipboard(position: Int) {
         val manager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         if (manager == null) {
-            toast(R.string.logcat_copy_fail)
+            toast(R.string.logcatx_copy_fail)
         } else {
             manager.setPrimaryClip(
                 ClipData.newPlainText(
@@ -400,7 +399,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                     mAdapter.item(position).log
                 )
             )
-            toast(R.string.logcat_copy_succeed)
+            toast(R.string.logcatx_copy_succeed)
         }
     }
 
@@ -411,7 +410,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
         startActivity(
             Intent.createChooser(
                 intent,
-                getString(R.string.logcat_options_share)
+                getString(R.string.logcatx_options_share)
             )
         )
     }

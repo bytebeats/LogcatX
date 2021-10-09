@@ -10,7 +10,7 @@
         android:id="@+id/tv_log_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/logcat_item_background_color"
+        android:background="@color/logcatx_item_background_color"
         android:lineSpacingExtra="5dp"
         android:paddingStart="10dp"
         android:paddingLeft="10dp"
@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/logcat_ic_arrows_down"
+        android:src="@drawable/logcatx_ic_arrows_down"
         android:visibility="gone" />
 
     <TextView
