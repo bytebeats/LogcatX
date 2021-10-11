@@ -23,10 +23,10 @@ import me.bytebeats.logcatx.R
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 15:53
  * @Version 1.0
- * @Description TO-DO
+ * @Description To display captured logs
  */
 
-class LogAdapter(val context: Context) : RecyclerView.Adapter<LogAdapter.LogViewHolder>() {
+class LogcatAdapter(val context: Context) : RecyclerView.Adapter<LogcatAdapter.LogViewHolder>() {
     private val mExpanded = SparseBooleanArray()
     private val mLogs = mutableListOf<LogcatItem>()
     private var mKey: String? = null

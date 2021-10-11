@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
  * @Author bytebeats
  * @Email <happychinapc@gmail.com>
  * @Github https://github.com/bytebeats
- * @Created at 2021/10/9 20:31
+ * @Created at 2021/10/9 20:30
  * @Version 1.0
- * @Description TO-DO
+ * @Description OnItemLongPressListener for RecyclerView
  */
 
-interface OnItemDoubleClickListener {
-    fun onItemDoubleTap(recyclerView: RecyclerView, child: View, position: Int)
+interface OnItemLongPressListener {
+    fun onItemLongPress(recyclerView: RecyclerView, child: View, position: Int)
 }

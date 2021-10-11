@@ -11,9 +11,9 @@ import android.widget.Toast
  * @Author bytebeats
  * @Email <happychinapc@gmail.com>
  * @Github https://github.com/bytebeats
- * @Created at 2021/10/9 15:23
+ * @Created at 2021/10/11 15:23
  * @Version 1.0
- * @Description TO-DO
+ * @Description LogcatXInitializer to initialize LogcatX's lifecycle before Application#onCreate
  */
 
 class LogcatXInitializer : ContentProvider() {
@@ -21,7 +21,7 @@ class LogcatXInitializer : ContentProvider() {
         context?.let {
             LogcatPrefs.init(it)
             if (it is Application) {
-                FloatingLifecycle.with(it)
+                FloatingEntryLifecycle.with(it)
             } else {
                 Toast.makeText(it, R.string.logcatx_launch_error, Toast.LENGTH_SHORT).show()
             }

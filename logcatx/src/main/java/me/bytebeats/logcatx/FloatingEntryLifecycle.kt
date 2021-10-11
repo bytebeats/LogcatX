@@ -3,7 +3,7 @@ package me.bytebeats.logcatx
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import me.bytebeats.logcatx.ui.FloatingWindow
+import me.bytebeats.logcatx.ui.FloatingEntryWindow
 import me.bytebeats.logcatx.ui.LogcatXActivity
 
 /**
@@ -12,14 +12,14 @@ import me.bytebeats.logcatx.ui.LogcatXActivity
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 14:37
  * @Version 1.0
- * @Description TO-DO
+ * @Description FloatingEntryLifecycle registered by user's Application and showed floating entry icon for every Activity when Activity was created
  */
 
-class FloatingLifecycle : Application.ActivityLifecycleCallbacks {
+class FloatingEntryLifecycle : Application.ActivityLifecycleCallbacks {
 
     companion object {
         fun with(application: Application) {
-            application.registerActivityLifecycleCallbacks(FloatingLifecycle())
+            application.registerActivityLifecycleCallbacks(FloatingEntryLifecycle())
         }
     }
 
@@ -27,7 +27,7 @@ class FloatingLifecycle : Application.ActivityLifecycleCallbacks {
         if (activity is LogcatXActivity) {
             return
         }
-        FloatingWindow.with(activity).show()
+        FloatingEntryWindow.with(activity).show()
     }
 
     override fun onActivityStarted(activity: Activity) {}

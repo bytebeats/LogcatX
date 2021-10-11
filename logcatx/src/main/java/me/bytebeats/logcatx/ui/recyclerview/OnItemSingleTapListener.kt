@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
  * @Author bytebeats
  * @Email <happychinapc@gmail.com>
  * @Github https://github.com/bytebeats
- * @Created at 2021/10/9 20:30
+ * @Created at 2021/10/9 16:55
  * @Version 1.0
  * @Description TO-DO
  */
 
-interface OnItemLongClickListener {
-    fun onItemLongClick(recyclerView: RecyclerView, child: View, position: Int)
+interface OnItemSingleTapListener {
+    fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int)
 }

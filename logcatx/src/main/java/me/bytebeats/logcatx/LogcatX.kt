@@ -9,9 +9,9 @@ import kotlin.concurrent.thread
  * @Author bytebeats
  * @Email <happychinapc@gmail.com>
  * @Github https://github.com/bytebeats
- * @Created at 2021/10/9 14:47
+ * @Created at 2021/10/11 14:47
  * @Version 1.0
- * @Description TO-DO
+ * @Description LogcatX to obtain process's input stream from command "logcat -v ..."
  */
 
 object LogcatX {

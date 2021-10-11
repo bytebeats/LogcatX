@@ -2,6 +2,14 @@ package me.bytebeats.logcatx
 
 import java.util.regex.Pattern
 
+/**
+ * @Author bytebeats
+ * @Email <happychinapc@gmail.com>
+ * @Github https://github.com/bytebeats
+ * @Created at 2021/10/9 20:31
+ * @Version 1.0
+ * @Description represent every log's details
+ */
 
 data class LogcatItem internal constructor(
     val time: String,

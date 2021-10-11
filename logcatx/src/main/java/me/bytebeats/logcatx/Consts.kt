@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 14:07
  * @Version 1.0
- * @Description TO-DO
+ * @Description constants
  */
 
 internal const val LOGCATX_LEVEL = "logcatx_level"
@@ -21,6 +21,7 @@ internal const val LOGCATX_TEXT = "logcatx_text"
 internal const val LINE_SPACE = "\n    "
 internal val IGNORED_LOGS =
     listOf("--------- beginning of crash", "--------- beginning of main", "--------- beginning of system")
+internal const val LogcatX_TAG = "LogcatX"
 
 internal val UTF_8 =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) StandardCharsets.UTF_8 else Charset.forName("UTF-8")

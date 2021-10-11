@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Process
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.widget.*
@@ -23,8 +24,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.bytebeats.logcatx.*
-import me.bytebeats.logcatx.ui.recyclerview.OnItemLongClickListener
-import me.bytebeats.logcatx.ui.recyclerview.OnItemSingleClickListener
+import me.bytebeats.logcatx.ui.recyclerview.OnItemLongPressListener
+import me.bytebeats.logcatx.ui.recyclerview.OnItemSingleTapListener
 import me.bytebeats.logcatx.ui.recyclerview.RecyclerViewClickBinder
 import java.io.*
 import java.text.SimpleDateFormat
@@ -36,7 +37,7 @@ import java.util.*
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 14:40
  * @Version 1.0
- * @Description TO-DO
+ * @Description LogcatXActivity with launchMode of "singleInstance" to capture, display, save, share logs for testers.
  */
 
 internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickListener, View.OnLongClickListener,
@@ -53,7 +54,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     private val mDownView by lazyFind<View>(R.id.ib_log_down)
 
     private val mAdapter by lazy {
-        LogAdapter(this)
+        LogcatAdapter(this)
     }
 
     private val mTagFilter = mutableListOf<String>()
@@ -65,20 +66,21 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.logcatx_window_logcat)
-        RecyclerViewClickBinder(mRecyclerview, object : OnItemSingleClickListener {
+        Log.i(LogcatX_TAG, "before")
+        mRecyclerview.addOnItemTouchListener(RecyclerViewClickBinder(mRecyclerview, object : OnItemSingleTapListener {
             override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                 mAdapter.clickAt(position)
             }
-        }, object : OnItemLongClickListener {
-            override fun onItemLongClick(recyclerView: RecyclerView, child: View, position: Int) {
-                ChooseWindow(this@LogcatXActivity)
+        }, object : OnItemLongPressListener {
+            override fun onItemLongPress(recyclerView: RecyclerView, child: View, position: Int) {
+                LogcatOptionsWindow(this@LogcatXActivity)
                     .setList(
                         R.string.logcatx_options_copy,
                         R.string.logcatx_options_share,
                         R.string.logcatx_options_delete,
                         R.string.logcatx_options_shield
                     )
-                    .setOnItemClickListener(object : OnItemSingleClickListener {
+                    .setOnItemClickListener(object : OnItemSingleTapListener {
                         override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                             when (position) {
                                 0 -> {
@@ -101,7 +103,8 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                     })
                     .show()
             }
-        }, null)
+        }, null))
+        Log.i(LogcatX_TAG, "after")
         mRecyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerview.adapter = mAdapter
 
@@ -396,7 +399,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             manager.setPrimaryClip(
                 ClipData.newPlainText(
                     "logcatX",
-                    mAdapter.item(position).log
+                    mAdapter.item(position).string()
                 )
             )
             toast(R.string.logcatx_copy_succeed)
@@ -406,7 +409,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     private fun smartShare(position: Int) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TEXT, mAdapter.item(position).log)
+        intent.putExtra(Intent.EXTRA_TEXT, mAdapter.item(position).string())
         startActivity(
             Intent.createChooser(
                 intent,

@@ -14,10 +14,10 @@ import me.bytebeats.logcatx.R
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 20:13
  * @Version 1.0
- * @Description TO-DO
+ * @Description Options to logs, e.g.: copy, share, delete and shield
  */
 
-class ChooseAdapter(val context: Context) : RecyclerView.Adapter<ChooseAdapter.ChooseViewHolder>() {
+class LogcatOptionsAdapter(val context: Context) : RecyclerView.Adapter<LogcatOptionsAdapter.ChooseViewHolder>() {
 
     private val mDataSet = mutableListOf<String>()
 
@@ -28,7 +28,7 @@ class ChooseAdapter(val context: Context) : RecyclerView.Adapter<ChooseAdapter.C
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseViewHolder {
-        return ChooseViewHolder(LayoutInflater.from(context).inflate(R.layout.logcat_item_choose, parent, false))
+        return ChooseViewHolder(LayoutInflater.from(context).inflate(R.layout.logcatx_item_logcat_options, parent, false))
     }
 
     override fun onBindViewHolder(holder: ChooseViewHolder, position: Int) {
