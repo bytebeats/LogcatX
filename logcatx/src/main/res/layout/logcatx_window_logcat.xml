@@ -18,7 +18,7 @@
 
         <CheckBox
             android:id="@+id/iv_log_switch"
-            android:padding="3dp"
+            android:padding="5dp"
             android:layout_width="@dimen/action_bar_icon_size"
             android:layout_height="@dimen/action_bar_icon_size"
             android:layout_marginLeft="5dp"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/logcatx_ic_empty"
+                android:src="@drawable/logcatx_ic_clear"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -98,7 +98,7 @@
             android:layout_height="@dimen/action_bar_icon_size"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/logcatx_ic_clear" />
+            android:src="@drawable/logcatx_ic_clean" />
 
         <ImageView
             android:id="@+id/iv_log_close"

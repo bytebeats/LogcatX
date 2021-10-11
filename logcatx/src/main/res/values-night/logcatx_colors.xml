@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="logcatx_window_background_color">@color/purple_200</color>
+    <color name="logcatx_card_background_color">#262732</color>
     <color name="logcatx_background_color">#20212A</color>
     <color name="logcatx_item_background_color">@color/black</color>
     <color name="logcatx_scrollbar_thumb_color">#FF191A22</color>

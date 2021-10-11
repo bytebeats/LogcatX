@@ -11,15 +11,15 @@
         android:gravity="center"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
-        android:textColor="#BB000000"
+        android:textColor="@color/logcatx_item_text_color"
         android:textSize="12sp"
-        tools:text="提示语" />
+        tools:text="Options" />
 
     <View
         android:id="@+id/v_choose_divider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="#F5F5F5" />
+        android:background="@color/logcatx_item_divider_color" />
 
 </FrameLayout>

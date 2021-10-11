@@ -8,13 +8,14 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <application android:theme="@style/Theme.LogcatX">
+    <application>
         <provider
             android:authorities="${applicationId}.logcatx.provider"
             android:name=".LogcatXInitializer"
             android:exported="false"
             android:initOrder="99" />
         <activity
+            android:theme="@style/Theme.LogcatX"
             android:name=".ui.LogcatXActivity"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="stateHidden"

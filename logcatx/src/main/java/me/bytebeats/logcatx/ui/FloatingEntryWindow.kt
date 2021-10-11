@@ -16,10 +16,10 @@ import me.bytebeats.logcatx.R
  * @Github https://github.com/bytebeats
  * @Created at 2021/10/9 14:41
  * @Version 1.0
- * @Description TO-DO
+ * @Description FloatingEntryWindow to LogcatXActivity
  */
 
-class FloatingWindow private constructor(activity: Activity) : XToast<FloatingWindow>(activity),
+class FloatingEntryWindow private constructor(activity: Activity) : XToast<FloatingEntryWindow>(activity),
         XToast.OnClickListener<View> {
 
     init {
@@ -28,7 +28,7 @@ class FloatingWindow private constructor(activity: Activity) : XToast<FloatingWi
             setImageResource(R.drawable.logcat_selector_floating)
         }
         val size =
-            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45F, activity.resources.displayMetrics).toInt()
+            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40F, activity.resources.displayMetrics).toInt()
         setWidth(size)
         setHeight(size)
 
@@ -42,8 +42,7 @@ class FloatingWindow private constructor(activity: Activity) : XToast<FloatingWi
         startActivity(Intent(context, LogcatXActivity::class.java))
     }
 
-
     companion object {
-        fun with(activity: Activity): FloatingWindow = FloatingWindow(activity)
+        fun with(activity: Activity): FloatingEntryWindow = FloatingEntryWindow(activity)
     }
 }

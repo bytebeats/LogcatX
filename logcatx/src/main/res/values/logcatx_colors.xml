@@ -9,15 +9,16 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="logcatx_window_background_color">@color/purple_500</color>
+    <color name="logcatx_card_background_color">#f7f7fa</color>
     <color name="logcatx_background_color">@color/white</color>
     <color name="logcatx_item_background_color">@color/white</color>
     <color name="logcatx_scrollbar_thumb_color">#FFF7F7FA</color>
-    <color name="logcatx_item_divider_color">#FFF7F7FA</color>
+    <color name="logcatx_item_divider_color">#EBECF1</color>
     <color name="logcatx_item_text_color">@color/teal_700</color>
 
     <color name="logcatx_level_verbose_color">#FFA8A8A8</color>
     <color name="logcatx_level_debug_color">#FF1194D6</color>
-    <color name="logcatx_level_info_color">#FF66EE33</color>
+    <color name="logcatx_level_info_color">#FF33EE88</color>
     <color name="logcatx_level_warn_color">#FFBB7000</color>
     <color name="logcatx_level_error_color">#FFDB332F</color>
     <color name="logcatx_level_other_color">#FFFFFFFF</color>

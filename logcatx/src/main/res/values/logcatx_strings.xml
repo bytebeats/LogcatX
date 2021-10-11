@@ -4,10 +4,10 @@
 
     <string name="logcatx_search_hint">请输入要查找的内容</string>
 
-    <string name="logcatx_options_copy">复制日志</string>
-    <string name="logcatx_options_share">分享日志</string>
-    <string name="logcatx_options_delete">删除日志</string>
-    <string name="logcatx_options_shield">屏蔽日志</string>
+    <string name="logcatx_options_copy">复制</string>
+    <string name="logcatx_options_share">分享</string>
+    <string name="logcatx_options_delete">删除</string>
+    <string name="logcatx_options_shield">屏蔽</string>
 
     <string name="logcatx_copy_succeed">日志复制成功</string>
     <string name="logcatx_copy_fail">日志复制失败</string>
@@ -15,8 +15,8 @@
     <string name="logcatx_capture">日志捕获开关</string>
     <string name="logcatx_save">保存日志</string>
     <string name="logcatx_level">日志等级过滤</string>
-    <string name="logcatx_empty">清空日志</string>
-    <string name="logcatx_close">关闭显示</string>
+    <string name="logcatx_clear">清空日志</string>
+    <string name="logcatx_close">退出</string>
 
     <string name="logcatx_capture_pause">日志捕捉已暂停</string>
 

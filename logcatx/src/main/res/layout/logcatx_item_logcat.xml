@@ -47,7 +47,7 @@
     <View
         android:id="@+id/v_log_divider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:background="@color/logcatx_item_divider_color" />
 </FrameLayout>

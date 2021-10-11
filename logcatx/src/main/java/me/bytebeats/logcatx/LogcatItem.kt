@@ -2,6 +2,14 @@ package me.bytebeats.logcatx
 
 import java.util.regex.Pattern
 
+/**
+ * @Author bytebeats
+ * @Email <happychinapc@gmail.com>
+ * @Github https://github.com/bytebeats
+ * @Created at 2021/10/9 20:31
+ * @Version 1.0
+ * @Description represent every log's details
+ */
 
 data class LogcatItem internal constructor(
     val time: String,
@@ -17,7 +25,7 @@ data class LogcatItem internal constructor(
         log = "${if (log.startsWith(LINE_SPACE)) "" else LINE_SPACE}$log$LINE_SPACE$text"
     }
 
-    fun string(): String = "$time/$pid $level/$tag: $log"
+    fun string(): String = "$time/$pid  $level/$tag:  $log"
 
     companion object {
 
