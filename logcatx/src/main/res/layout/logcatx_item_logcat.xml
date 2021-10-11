@@ -13,25 +13,23 @@
         android:background="@color/logcatx_item_background_color"
         android:lineSpacingExtra="5dp"
         android:paddingStart="10dp"
-        android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingEnd="40dp"
-        android:paddingRight="40dp"
         android:paddingBottom="5dp"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        tools:text="12:50 Tag 我是打印的日志" />
+        android:textSize="13sp"
+        tools:text="Time Tag Stack traces" />
 
     <ImageView
         android:id="@+id/iv_log_expand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="end|top"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        tools:visibility="visible"
         android:src="@drawable/logcatx_ic_arrows_down"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:tint="@color/logcatx_item_text_color" />
 
     <TextView
         android:id="@+id/tv_log_index"
@@ -40,10 +38,9 @@
         android:layout_gravity="end"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
+        android:textColor="@color/logcatx_item_text_color"
+        android:textSize="14sp"
         android:visibility="visible"
         tools:text="100" />
 
@@ -52,5 +49,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_gravity="bottom"
-        android:background="#F5F5F5" />
+        android:background="@color/logcatx_item_divider_color" />
 </FrameLayout>
