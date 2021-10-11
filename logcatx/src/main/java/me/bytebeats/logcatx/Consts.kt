@@ -31,3 +31,11 @@ fun <T : View> AppCompatActivity.lazyFind(@IdRes viewId: Int): Lazy<T> =
     lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         findViewById(viewId)
     }
+
+fun View?.gone(): Unit {
+    this?.visibility = View.GONE
+}
+
+fun View?.visible(): Unit {
+    this?.visibility = View.VISIBLE
+}

@@ -46,7 +46,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     private val mSaveView by lazyFind<View>(R.id.iv_log_save)
     private val mLevelView by lazyFind<TextView>(R.id.tv_log_level)
     private val mSearchView by lazyFind<EditText>(R.id.et_log_search)
-    private val mEmptyView by lazyFind<View>(R.id.iv_log_empty)
+    private val mEmptyView by lazyFind<View>(R.id.iv_log_clear)
     private val mCleanView by lazyFind<View>(R.id.iv_log_clean)
     private val mCloseView by lazyFind<View>(R.id.iv_log_close)
     private val mRecyclerview by lazyFind<RecyclerView>(R.id.lv_log_recycler)
@@ -64,7 +64,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.logcat_window_logcat)
+        setContentView(R.layout.logcatx_window_logcat)
         RecyclerViewClickBinder(mRecyclerview, object : OnItemSingleClickListener {
             override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                 mAdapter.clickAt(position)
@@ -225,7 +225,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             R.id.iv_log_save -> saveLogsToLocal()
             R.id.tv_log_level -> {
             }
-            R.id.iv_log_empty -> mSearchView.setText("")
+            R.id.iv_log_clear -> mSearchView.setText("")
             R.id.iv_log_clean -> {
                 LogcatX.clear()
                 mAdapter.clear()
