@@ -16,6 +16,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import me.bytebeats.logcatx.LogcatItem
 import me.bytebeats.logcatx.R
+import me.bytebeats.logcatx.gone
+import me.bytebeats.logcatx.visible
 
 /**
  * @Author bytebeats
@@ -119,9 +121,13 @@ class LogcatAdapter(val context: Context) : RecyclerView.Adapter<LogcatAdapter.L
                 context.resources.getColor(logColorRes)
             }
             contentView.setTextColor(logTextColor)
-            dividerView.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE
+            if (position == itemCount - 1) {
+                dividerView.gone()
+            } else {
+                dividerView.visible()
+            }
 
-            if (contentView.lineCount > MAX_LINE + 1) {
+            if (contentView.lineCount > MAX_LINE) {
                 if (mExpanded.get(position)) {
                     if (contentView.maxLines != Int.MAX_VALUE) {
                         contentView.maxLines = Int.MAX_VALUE
@@ -134,13 +140,13 @@ class LogcatAdapter(val context: Context) : RecyclerView.Adapter<LogcatAdapter.L
                     }
                 }
 
-                expandView.visibility = View.VISIBLE
-                indexView.visibility = View.GONE
+                expandView.visible()
+                indexView.gone()
             } else {
                 contentView.maxLines = Int.MAX_VALUE
                 indexView.text = (position + 1).toString()
-                expandView.visibility = View.GONE
-                indexView.visibility = View.VISIBLE
+                expandView.gone()
+                indexView.visible()
             }
         }
     }

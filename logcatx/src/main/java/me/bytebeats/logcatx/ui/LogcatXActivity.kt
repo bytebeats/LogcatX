@@ -227,6 +227,17 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
         when (v?.id) {
             R.id.iv_log_save -> saveLogsToLocal()
             R.id.tv_log_level -> {
+                LogcatOptionsWindow(this).setList(LOG_LEVELS).setOnItemClickListener(object : OnItemSingleTapListener{
+                    override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
+                        when (position) {
+                            1 -> logLevel("D")
+                            2 -> logLevel("I")
+                            3 -> logLevel("W")
+                            4 -> logLevel("E")
+                            else -> logLevel("V")
+                        }
+                    }
+                }).show()
             }
             R.id.iv_log_clear -> mSearchView.setText("")
             R.id.iv_log_clean -> {
@@ -279,7 +290,11 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             }
         }
         mRecyclerview.scrollToPosition(mAdapter.lastIndex())
-        mEmptyView.visibility = if (keyword.isEmpty()) View.VISIBLE else View.GONE
+        if (keyword.isEmpty()) {
+            mEmptyView.visible()
+        } else {
+            mEmptyView.gone()
+        }
     }
 
     private fun logLevel(level: String) {
@@ -295,6 +310,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             "E" -> LOG_LEVELS[4]
             else -> LOG_LEVELS[0]
         }
+        mLevelView.text = textLevel
     }
 
     private fun initFilter() {
@@ -334,7 +350,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             writer = BufferedWriter(OutputStreamWriter(FileOutputStream(file, false), UTF_8))
             mTagFilter.forEach { writer.write("$it\r\n") }
             writer.flush()
-            mAdapter.logs().filter { it.tag == tag }
+            mAdapter.logs().filter { it.tag != tag }
             mAdapter.notifyDataSetChanged()
             toast("${getString(R.string.logcatx_shield_succeed)} ${file.path}")
         } catch (ignored: IOException) {
