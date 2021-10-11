@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.Process
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.widget.*
@@ -66,13 +65,12 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.logcatx_window_logcat)
-        Log.i(LogcatX_TAG, "before")
         mRecyclerview.addOnItemTouchListener(RecyclerViewClickBinder(mRecyclerview, object : OnItemSingleTapListener {
             override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                 mAdapter.clickAt(position)
             }
         }, object : OnItemLongPressListener {
-            override fun onItemLongPress(recyclerView: RecyclerView, child: View, position: Int) {
+            override fun onItemLongPress(recyclerView: RecyclerView, child: View, logPosition: Int) {
                 LogcatOptionsWindow(this@LogcatXActivity)
                     .setList(
                         R.string.logcatx_options_copy,
@@ -84,17 +82,17 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                         override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                             when (position) {
                                 0 -> {
-                                    copyIntoClipboard(position)
+                                    copyIntoClipboard(logPosition)
                                 }
                                 1 -> {
-                                    smartShare(position)
+                                    smartShare(logPosition)
                                 }
                                 2 -> {
-                                    mLogs.remove(mAdapter.item(position))
-                                    mAdapter.removeAt(position)
+                                    mLogs.remove(mAdapter.item(logPosition))
+                                    mAdapter.removeAt(logPosition)
                                 }
                                 3 -> {
-                                    addFilter(mAdapter.item(position).tag)
+                                    addFilter(mAdapter.item(logPosition).tag)
                                 }
                                 else -> {
                                 }
@@ -104,7 +102,6 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
                     .show()
             }
         }, null))
-        Log.i(LogcatX_TAG, "after")
         mRecyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerview.adapter = mAdapter
 
@@ -153,10 +150,10 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
         })
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) hideSystemUI() else showSystemUI()
-    }
+//    override fun onWindowFocusChanged(hasFocus: Boolean) {
+//        super.onWindowFocusChanged(hasFocus)
+//        if (hasFocus) hideSystemUI() else showSystemUI()
+//    }
 
     private fun hideSystemUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -227,7 +224,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
         when (v?.id) {
             R.id.iv_log_save -> saveLogsToLocal()
             R.id.tv_log_level -> {
-                LogcatOptionsWindow(this).setList(LOG_LEVELS).setOnItemClickListener(object : OnItemSingleTapListener{
+                LogcatOptionsWindow(this).setList(LOG_LEVELS).setOnItemClickListener(object : OnItemSingleTapListener {
                     override fun onItemSingleTap(recyclerView: RecyclerView, child: View, position: Int) {
                         when (position) {
                             1 -> logLevel("D")
@@ -254,7 +251,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
             R.id.iv_log_switch -> R.string.logcatx_capture
             R.id.iv_log_save -> R.string.logcatx_save
             R.id.tv_log_level -> R.string.logcatx_level
-            R.id.iv_log_clean -> R.string.logcatx_empty
+            R.id.iv_log_clean -> R.string.logcatx_clear
             R.id.iv_log_close -> R.string.logcatx_close
             else -> null
         }
@@ -314,7 +311,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     }
 
     private fun initFilter() {
-        val file = File(getExternalFilesDir(FILE_TYPE), LOGCATX_TAG_FILTER_FILE)
+        val file = File(getExternalFilesDir(DIR_LOGCATX), FILE_LOGCATX_FILTERED_TAGS)
         if (file.exists() && file.isFile) {
             var reader: BufferedReader? = null
             try {
@@ -340,7 +337,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
         mTagFilter.add(tag)
         var writer: BufferedWriter? = null
         try {
-            val file = File(getExternalFilesDir(FILE_TYPE), LOGCATX_TAG_FILTER_FILE)
+            val file = File(getExternalFilesDir(DIR_LOGCATX), FILE_LOGCATX_FILTERED_TAGS)
             if (!file.isFile) {
                 file.delete()
             }
@@ -367,7 +364,8 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     private fun saveLogsToLocal() {
         var writer: BufferedWriter? = null
         try {
-            val dir = getExternalFilesDir(FILE_TYPE) ?: return
+            val dir = getExternalFilesDir(DIR_LOGCATX)
+                ?: throw RuntimeException("Something wrong about directory: $DIR_LOGCATX")
             if (!dir.isDirectory) {
                 dir.delete()
             }
@@ -460,7 +458,7 @@ internal class LogcatXActivity : AppCompatActivity(), TextWatcher, View.OnClickL
     }
 
     companion object {
-        private const val FILE_TYPE = "LogcatX"
-        private const val LOGCATX_TAG_FILTER_FILE = "logcatx_tag_filter.txt"
+        private const val DIR_LOGCATX = "LogcatX"
+        private const val FILE_LOGCATX_FILTERED_TAGS = "logcatx_filtered_tags.txt"
     }
 }

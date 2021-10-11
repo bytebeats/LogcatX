@@ -15,7 +15,7 @@ import me.bytebeats.logcatx.ui.LogcatXActivity
  * @Description FloatingEntryLifecycle registered by user's Application and showed floating entry icon for every Activity when Activity was created
  */
 
-class FloatingEntryLifecycle : Application.ActivityLifecycleCallbacks {
+internal class FloatingEntryLifecycle : Application.ActivityLifecycleCallbacks {
 
     companion object {
         fun with(application: Application) {

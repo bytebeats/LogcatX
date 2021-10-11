@@ -4,10 +4,10 @@
 
     <string name="logcatx_search_hint">Please enter what you are looking for</string>
 
-    <string name="logcatx_options_copy">Copy log</string>
-    <string name="logcatx_options_share">Share log</string>
-    <string name="logcatx_options_delete">Delete log</string>
-    <string name="logcatx_options_shield">Block log</string>
+    <string name="logcatx_options_copy">Copy</string>
+    <string name="logcatx_options_share">Share</string>
+    <string name="logcatx_options_delete">Delete</string>
+    <string name="logcatx_options_shield">Block</string>
 
     <string name="logcatx_copy_succeed">Log copied successfully</string>
     <string name="logcatx_copy_fail">Log copy failed</string>
@@ -15,8 +15,8 @@
     <string name="logcatx_capture">Log capture switch</string>
     <string name="logcatx_save">Save log</string>
     <string name="logcatx_level">Log level filtering</string>
-    <string name="logcatx_empty">Clear log</string>
-    <string name="logcatx_close">Close display</string>
+    <string name="logcatx_clear">Clear log</string>
+    <string name="logcatx_close">Quit</string>
 
     <string name="logcatx_capture_pause">Log capture is paused</string>
 

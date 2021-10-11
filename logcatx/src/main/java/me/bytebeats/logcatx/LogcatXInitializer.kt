@@ -16,7 +16,7 @@ import android.widget.Toast
  * @Description LogcatXInitializer to initialize LogcatX's lifecycle before Application#onCreate
  */
 
-class LogcatXInitializer : ContentProvider() {
+internal class LogcatXInitializer : ContentProvider() {
     override fun onCreate(): Boolean {
         context?.let {
             LogcatPrefs.init(it)
