@@ -12,9 +12,9 @@ Capture, Display, Save, Share Android logs in Android devices.
 
 ## Graph Effects
 
-<img src="/arts/logcat_options.gif" width="360" height="800"/>
-<img src="/arts/logcat_options.gif" width="360" height="800"/>
-<img src="/arts/logcat_quit.gif" width="360" height="800"/>
+<img src="/arts/logcatx_toolbar.gif" width="360" height="750"/>
+<img src="/arts/logcatx_options.gif" width="360" height="750"/>
+<img src="/arts/logcatx_quit.gif" width="360" height="750"/>
 
 ## How to use?
 
