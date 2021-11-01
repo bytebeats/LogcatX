@@ -10,6 +10,11 @@
 
 Capture, Display, Save, Share Android logs in Android devices.
 
+## Features
+
+* Floating window. Shown overlay Activities's Window.
+* Dark theme. Supported and followed system's Light Theme or Dark Theme.
+
 ## Graph Effects
 
 <img src="/arts/logcatx_toolbar.gif" width="360" height="750"/>
